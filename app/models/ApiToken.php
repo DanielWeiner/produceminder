@@ -3,7 +3,11 @@
 		protected $table = 'apitoken';
 		public $timestamps = false;
 
-		function user($token) {
-			return User::find(static::where('value', $token)->first()->id);
+		public static function user($token) {
+			$apiToken = static::where('value', $token)->first();
+			if ($apiToken) {
+				return User::find($apiToken->id);
+			}
+			return null;
 		}
 	}

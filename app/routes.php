@@ -16,6 +16,7 @@ Route::get('product', function(){
 Route::get('/view/login', function(){
 	return View::make('login');
 });
+Route::get('user', 'ApiController@getUserFromApiToken');
 Route::get('user/{id}/delete','ApiController@deleteUser');
 Route::get('user/{id}/delete','ApiController@deleteUser');
 Route::get('/user/create/', 'ApiController@createUser');

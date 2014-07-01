@@ -155,7 +155,6 @@
 			];
 			return {
 				request: function(config) {
-					console.log(config);
 					for (var i = 0; i < noAuth.length; i++) {
 						if (config.url.indexOf(noAuth[i]) !== -1) {
 							return config;
@@ -169,20 +168,20 @@
 						config.data = config.data || {};
 						config.data.apiToken = apiToken.getToken();
 					}
-					console.log(config);
 					return config;
-				},
-				response: function(response) {
+				}, response: function(resp) {
 					for (var i = 0; i < noKeyReturned.length; i++) {
-						if (response.config.url.indexOf(noKeyReturned[i])) {
-							return response;
+						if (resp.config.url.indexOf(noKeyReturned[i])) {
+							return resp;
 						}
 					}
-					if (!response.data.apiToken) {
-						return $q.reject(response);
+					console.log(resp);
+					if (!resp.data.apiToken) {
+						return $q.reject(resp);
 					}
-					apiToken.setToken(response.data.apiToken);
-					response.data = response.data.data;
+					apiToken.setToken(resp.data.apiToken);
+					resp.data = resp.data.data;
+					return resp;
 				}
 			};
 		})
